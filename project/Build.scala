@@ -7,22 +7,40 @@ import play.twirl.sbt.Import._
 object Build extends Build {
 
   import BuildSettings._
+  import Dependencies._
 
-  lazy val root = Project(id = "root", base = file(".")) enablePlugins PlayScala settings(
+  lazy val root = Project("movies", file(".")) enablePlugins PlayScala settings(
     scalaVersion := "2.11.1",
-    name := "moduled-app",
+    resolvers ++= Dependencies.Resolvers.commons,
+    name := "Movies",
     version := "1.0-SNAPSHOT",
     libraryDependencies ++= Seq(
-      jdbc, anorm, cache, ws
-    )
+      cache, ws, RM, PRM
+    ),
+    scalacOptions := compilerOptions,
+    sources in doc in Compile := List()
   ) dependsOn user aggregate user
 
-  lazy val modules = Seq(user)
+  lazy val modules = Seq(user, common, db)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
 
-  lazy val user = project("user")
+  /**
+   *  My Modules
+   */
+  lazy val common = project("common").settings(
+    libraryDependencies ++= provided(play.api, play.test, RM)
+  )
+
+  lazy val db = project("db", Seq(common)).settings(
+    libraryDependencies ++= provided(play.test, play.api, RM, PRM)
+  )
+
+  lazy val user = project("user", Seq(common, db)).settings(
+    libraryDependencies ++= provided(
+      play.api, RM, PRM)
+  )
 
 }
 
