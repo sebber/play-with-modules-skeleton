@@ -1,9 +1,14 @@
 package se.sebber.db
 
 import com.typesafe.config.Config
-import play.modules.reactivemongo.ReactiveMongoPlugin
+//import play.modules.reactivemongo.ReactiveMongoPlugin
+import play.modules.reactivemongo._
+import play.modules.reactivemongo.json.collection.JSONCollection
+import reactivemongo.api.collections.default.BSONCollection
+
 import reactivemongo.api._
 //import Types._
+
 
 final class Env() {
 
@@ -12,7 +17,7 @@ final class Env() {
     ReactiveMongoPlugin.db
   }
 
-  def apply(name: String): Collection = db(name)
+  def collection(name: String) = db.collection[BSONCollection](name)
 
 }
 
