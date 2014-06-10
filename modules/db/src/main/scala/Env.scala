@@ -17,7 +17,7 @@ final class Env() {
     ReactiveMongoPlugin.db
   }
 
-  def collection(name: String) = db.collection[BSONCollection](name)
+  def collection(name: String) = db.collection[JSONCollection](name)
 
 }
 

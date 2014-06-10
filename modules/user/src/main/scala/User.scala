@@ -32,4 +32,10 @@ object User {
     (JsPath \ "email").write[String]
   )(unlift(User.unapply))
 
+
+  import play.api.libs.json._
+  import play.modules.reactivemongo.json.collection._
+  
+  implicit val userReader: Reads[User] = Json.reads[User]
+
 }

@@ -1,4 +1,4 @@
-This is your new Play application
+play-with-modules-skeleton
 =================================
 
-This file will be packaged with your application, when using `activator dist`.
+This is a skeletonproject containing a modulestructure by ideas from lichess and also uses mongodb through the reactivemongo-driver plugin.
