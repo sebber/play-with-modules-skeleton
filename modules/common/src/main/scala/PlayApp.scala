@@ -5,16 +5,16 @@ import play.api.{ Play, Application, Mode }
 
 object PlayApp {
 
-  def loadConfig: Config = withApp(_.configuration.underlying)
+  //def loadConfig: Config = withApp(_.configuration.underlying)
 
-  def loadConfig(prefix: String): Config = loadConfig getConfig prefix
+  //def loadConfig(prefix: String): Config = loadConfig getConfig prefix
 
-  def withApp[A](op: Application => A): A =
-    Play.maybeApplication map op // err "Play application is not started!"
+  //def withApp[A](op: Application => A): A =
+  //  Play.maybeApplication map op // err "Play application is not started!"
   
-  def system = withApp { implicit app =>
-    play.api.libs.concurrent.Akka.system
-  }
+  //def system = withApp { implicit app =>
+  //  play.api.libs.concurrent.Akka.system
+  //}
 
   /*
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
