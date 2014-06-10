@@ -4,7 +4,8 @@ import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
-import reactivemongo.bson._
+//import reactivemongo.bson._
+import play.modules.reactivemongo.json.collection._
 
 case class User(
   username: String,
@@ -13,29 +14,7 @@ case class User(
 
 object User {
 
-  implicit object UserBSONReader extends BSONDocumentReader[User] {
-    def read(doc: BSONDocument): User = User(
-      doc.getAs[String]("username").get,
-      doc.getAs[String]("email").get
-    )
-  }
-
-  implicit object UserBSONWriter extends BSONDocumentWriter[User] {
-    def write(user: User): BSONDocument = BSONDocument(
-      "username" -> user.username,
-      "email" -> user.email
-    )
-  }
-
-  implicit val userWrites: Writes[User] = (
-    (JsPath \ "username").write[String] and
-    (JsPath \ "email").write[String]
-  )(unlift(User.unapply))
-
-
-  import play.api.libs.json._
-  import play.modules.reactivemongo.json.collection._
-  
+  implicit val userWriter: Writes[User] = Json.writes[User]
   implicit val userReader: Reads[User] = Json.reads[User]
 
 }
