@@ -9,7 +9,8 @@ import play.modules.reactivemongo.json.collection._
 
 case class User(
   username: String,
-  email: String
+  email: String,
+  password: String
 )
 
 object User {

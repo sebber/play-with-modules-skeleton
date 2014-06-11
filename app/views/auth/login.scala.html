@@ -1,0 +1,18 @@
+@(loginForm: Form[LoginData])
+
+@import helper._
+
+@form(action = routes.Auth.authenticate) {
+
+  <h1>Login</h1>
+
+  <p>
+    @inputText(loginForm("username"))
+  </p>
+  <p>
+    @inputPassword(loginForm("password"))
+  </p>
+
+  <button type="submit">sign in</button>
+
+}

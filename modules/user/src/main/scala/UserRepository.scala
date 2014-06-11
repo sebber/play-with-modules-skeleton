@@ -19,4 +19,9 @@ class UserRepository {
     cursor.collect[List]()
   }
 
+  def authenticate(username: String, password: String): Future[Option[User]] = {
+    val query = Json.obj("username" -> username, "password" -> password)
+    usersCollection.find(query).one[User]
+  }
+
 }
