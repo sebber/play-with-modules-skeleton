@@ -27,7 +27,9 @@ object Auth extends Controller {
 
   def authenticate = Action.async { implicit request =>
     loginForm.bindFromRequest.fold(
-      formWithErrors => { Future { BadRequest(views.html.auth.login(formWithErrors)) }},
+      formWithErrors => { Future { 
+        BadRequest(views.html.auth.login(formWithErrors)) 
+      }},
       loginData => { 
         userRepo.authenticate(loginData.username, loginData.password).map { user =>
           import play.api.libs.json._
