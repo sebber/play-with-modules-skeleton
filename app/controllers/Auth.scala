@@ -44,4 +44,8 @@ object Auth extends Controller {
     
   }
 
+  def logout = Action {
+    Ok("Logout")
+  }
+
 }

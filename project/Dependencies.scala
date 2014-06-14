@@ -5,10 +5,10 @@ object Dependencies {
   private val home = "file://" + Path.userHome.absolutePath
 
   object Resolvers {
-    val typesafe = "typesafe.com releases" at "http://repo.typesafe.com/typesafe/releases/"
+    val typesafe  = "typesafe.com releases" at "http://repo.typesafe.com/typesafe/releases/"
     val typesafeS = "typesafe.com snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
-    val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
-    val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
+    val sonatype  = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
+    val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   
 
     val commons = Seq(

@@ -1,4 +1,4 @@
-@(registerForm: Form[RegisterData])
+@(userForm: Form[se.sebber.user.User])
 
 @import helper._
 
@@ -7,13 +7,13 @@
   <h1>Register an account</h1>
 
   <p>
-    @inputText(registerForm("username"))
+    @inputText(userForm("username"))
   </p>
   <p>
-    @inputText(registerForm("email"))
+    @inputText(userForm("email"))
   </p>
   <p>
-    @inputPassword(registerForm("password"))
+    @inputPassword(userForm("password"))
   </p>
 
   <button type="submit">Register</button>

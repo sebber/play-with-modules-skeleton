@@ -24,4 +24,10 @@ class UserRepository {
     usersCollection.find(query).one[User]
   }
 
+  def insert(user: User): Future[User] = {
+    usersCollection.insert(user).map( _ =>
+      User("", "", "")
+    )
+  }
+
 }
