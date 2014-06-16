@@ -11,15 +11,15 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.concurrent.{ Future }
 
 
-object Accounts extends Controller {
+object Accounts extends BaseController {
 
   import se.sebber.user.DataForm.registerForm
 
-  def registration = Action {
+  def registration = ContextAction { implicit ctx =>
     Ok(views.html.accounts.register(registerForm))
   }
 
-  def register = Action.async { implicit request =>
+  def register = ContextAction.async { implicit ctx =>
     registerForm.bindFromRequest.fold(
       formWithErrors => {
         Future { 
@@ -27,8 +27,9 @@ object Accounts extends Controller {
         }
       },
       user => {        
-        UserRegistration(user).execute().map { user =>
-          Ok(Json.toJson(user))
+        UserRegistration(user).register().map { user =>
+          Redirect("/").flashing(
+            "success" -> "You are now a registered user")
         }.recover {
           case e =>
             e.printStackTrace()

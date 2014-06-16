@@ -1,7 +1,14 @@
-@(message: String)
+@(users: List[se.sebber.user.User])(implicit ctx: ContextRequest[_])
 
 @main("Welcome to Play") {
 
-    @play20.welcome(message)
+  @ctx.flash.get("success").map { message =>
+    <h4>@message</h4>
+  }
+
+  @users.map { user =>
+    <h2>@user.username</h2>
+  }
+
 
 }

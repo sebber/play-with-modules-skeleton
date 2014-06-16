@@ -10,7 +10,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 case class LoginData(username: String, password: String)
 
-object Auth extends Controller {
+object Auth extends BaseController {
 
   val userRepo = new se.sebber.user.UserRepository()
 
@@ -21,11 +21,11 @@ object Auth extends Controller {
     )(LoginData.apply)(LoginData.unapply)
   )
 
-  def login = Action {
+  def login = ContextAction { implicit ctx =>
     Ok(views.html.auth.login(loginForm))
   }
 
-  def authenticate = Action.async { implicit request =>
+  def authenticate = ContextAction.async {  implicit ctx =>
     loginForm.bindFromRequest.fold(
       formWithErrors => { Future { 
         BadRequest(views.html.auth.login(formWithErrors)) 
@@ -33,7 +33,9 @@ object Auth extends Controller {
       loginData => { 
         userRepo.authenticate(loginData.username, loginData.password).map { user =>
           import play.api.libs.json._
-          Ok(Json.toJson(user))
+          Redirect("/")
+            .withSession("username" -> loginData.username)
+            .flashing("success" -> "You are now signed in")
         }.recover {
           case e =>
             e.printStackTrace()
@@ -44,8 +46,8 @@ object Auth extends Controller {
     
   }
 
-  def logout = Action {
-    Ok("Logout")
+  def logout = AuthenticatedContextAction {
+    Ok("Logout").withNewSession
   }
 
 }

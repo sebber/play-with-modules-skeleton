@@ -7,8 +7,10 @@ case class UserRegistration(user: User) {
   
   val userRepo = new UserRepository
 
-  def execute(): Future[User] = {
+  def register(): Future[User] = {
     userRepo.insert(user)
+
+    // Send mailconfirmation
   }
 
 }

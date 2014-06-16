@@ -7,13 +7,13 @@ import play.api.libs.json._
 
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-object Application extends Controller {
+object Application extends BaseController {
 
   val userRepo = new se.sebber.user.UserRepository()
 
-  def index = Action.async {
+  def index = ContextAction.async {  implicit ctx =>
     userRepo.all.map { users =>
-      Ok(Json.toJson(users))
+      Ok(views.html.index(users))
     }.recover {
       case e =>
         e.printStackTrace()
