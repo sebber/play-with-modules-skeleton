@@ -1,4 +1,6 @@
 play-with-modules-skeleton
 =================================
 
-This is a skeletonproject containing a modulestructure by ideas from lichess and also uses mongodb through the reactivemongo-driver plugin.
+This is a skeletonproject containing a modulestructure by many ideas from lichess.
+
+Uses mongodb with the reactivemongo-driver plugin.
