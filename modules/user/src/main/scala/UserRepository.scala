@@ -26,7 +26,7 @@ class UserRepository {
 
   def insert(user: User): Future[User] = {
     usersCollection.insert(user).map( _ =>
-      User("", "", "")
+      User(user.username, user.email, "")
     )
   }
 

@@ -1,4 +1,4 @@
-@(users: List[se.sebber.user.User])(implicit ctx: ContextRequest[_])
+@()(implicit ctx: ContextRequest[_])
 
 @main("Welcome to Play") {
 
@@ -6,9 +6,7 @@
     <h4>@message</h4>
   }
 
-  @users.map { user =>
-    <h2>@user.username</h2>
-  }
+  startsida
 
 
 }

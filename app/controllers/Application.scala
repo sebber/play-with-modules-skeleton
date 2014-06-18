@@ -11,9 +11,13 @@ object Application extends BaseController {
 
   val userRepo = new se.sebber.user.UserRepository()
 
-  def index = ContextAction.async {  implicit ctx =>
+  def index = ContextAction { implicit ctx =>
+    Ok(views.html.index())
+  }
+
+  def users = ContextAction.async {  implicit ctx =>
     userRepo.all.map { users =>
-      Ok(views.html.index(users))
+      Ok(Json.toJson(users)) //views.html.index(users))
     }.recover {
       case e =>
         e.printStackTrace()
