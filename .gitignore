@@ -2,6 +2,9 @@ logs
 project/project
 project/target
 target
+modules/*/target
+modules/*/src/main/java
+modules/*/src/main/resources
 tmp
 .history
 dist
